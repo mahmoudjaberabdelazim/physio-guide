@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Mahmoud Gaber Abo Elewa – Physio Guide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --card-bg: #151d30;
+            --card-hover: #1e2942;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            background: #0f172a;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 70px;
+        }
+
+        /* Header / Doctor Profile */
+        .doctor-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .avatar-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #1e293b;
+        }
+
+        .doctor-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .doctor-title {
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Navigation Grid */
+        .grid-nav {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 12px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .nav-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .content-area {
+            padding: 0 16px 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-view {
+            display: none;
+        }
+
+        .section-view.active-view {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Video Section */
+        .video-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+            margin-top: 10px;
+        }
+
+        .video-box iframe, .video-box video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Calculator Styles */
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: #090d16;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .btn-calc {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #090d16;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            display: none;
+        }
+
+        /* Quiz Styles */
+        .quiz-opt {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px;
+            background: #090d16;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-opt.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .quiz-opt.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Ad Banner Placeholder */
+        .ad-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #050811;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    <!-- Doctor Profile Header -->
+    <div class="doctor-header">
+        <div class="avatar-wrap">
+            <img src="profile.jpg" alt="Dr. Mahmoud" onerror="this.src='https://via.placeholder.com/150/1e293b/38bdf8?text=Dr.+Mahmoud'">
+        </div>
+        <div class="doctor-name">Dr. Mahmoud Gaber Abo Elewa</div>
+        <div class="doctor-title">Physical Therapy & Clinical Specialist</div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="grid-nav">
+        <button class="nav-btn active" onclick="switchTab('anatomy')">
+            <i class="fa-solid fa-bone"></i>
+            <span>Anatomy</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('exercises')">
+            <i class="fa-solid fa-dumbbell"></i>
+            <span>Exercises</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('calculator')">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Calculators</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('quizzes')">
+            <i class="fa-solid fa-brain"></i>
+            <span>Quizzes</span>
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        
+        <!-- Anatomy Tab -->
+        <div id="anatomy" class="section-view active-view">
+            <div class="card">
+                <h3><i class="fa-solid fa-circle-nodes"></i> Shoulder: Rotator Cuff (SITS)</h3>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5; margin-bottom: 8px;">
+                    <strong>Supraspinatus:</strong> Abduction (0°-15°) | Suprascapular N.<br>
+                    <strong>Infraspinatus:</strong> External Rotation | Suprascapular N.<br>
+                    <strong>Teres Minor:</strong> External Rotation | Axillary N.<br>
+                    <strong>Subscapularis:</strong> Internal Rotation | Subscapular N.
+                </p>
+            </div>
+            <div class="card">
+                <h3><i class="fa-solid fa-circle-nodes"></i> Lumbar Spine Core</h3>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">
+                    Key stabilizing musculature includes <em>Multifidus</em> and <em>Transversus Abdominis</em> crucial in Lumbar Disc Herniation rehabilitation.
+                </p>
+            </div>
+        </div>
+
+        <!-- Exercises Tab -->
+        <div id="exercises" class="section-view">
+            <div class="card">
+                <h3><i class="fa-solid fa-video"></i> Shoulder Rehab Routine</h3>
+                <p style="color: var(--text-sub); font-size: 0.85rem;">Clinical execution of Rotator Cuff strengthening and Scapular stabilization.</p>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculators Tab -->
+        <div id="calculator" class="section-view">
+            <div class="card">
+                <h3><i class="fa-solid fa-weight-scale"></i> Body Mass Index (BMI)</h3>
+                <div class="input-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 75">
+                </div>
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 178">
+                </div>
+                <button class="btn-calc" onclick="calculateBMI()">Calculate BMI</button>
+                <div id="bmi-result" class="result-box"></div>
+            </div>
+        </div>
+
+        <!-- Quizzes Tab -->
+        <div id="quizzes" class="section-view">
+            <div class="card">
+                <h3><i class="fa-solid fa-circle-question"></i> Clinical MCQ</h3>
+                <p style="margin-bottom: 12px; font-size: 0.9rem;">Which nerve innervates the <strong>Supraspinatus</strong> muscle?</p>
+                <button class="quiz-opt" onclick="checkAnswer(this, false)">A) Axillary Nerve</button>
+                <button class="quiz-opt" onclick="checkAnswer(this, true)">B) Suprascapular Nerve</button>
+                <button class="quiz-opt" onclick="checkAnswer(this, false)">C) Musculocutaneous Nerve</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Ad Unit Placeholder -->
+    <div class="ad-banner">
+        <div>
+            <i class="fa-brands fa-google"></i> Google AdSense / AdMob Banner Space
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.section-view').forEach(view => view.classList.remove('active-view'));
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active-view');
+        event.currentTarget.classList.add('active');
+    }
+
+    function calculateBMI() {
+        const w = parseFloat(document.getElementById('weight').value);
+        const h = parseFloat(document.getElementById('height').value) / 100;
+        const res = document.getElementById('bmi-result');
+
+        if (w > 0 && h > 0) {
+            const bmi = (w / (h * h)).toFixed(1);
+            let cat = '';
+            if (bmi < 18.5) cat = 'Underweight';
+            else if (bmi < 25) cat = 'Normal Weight';
+            else if (bmi < 30) cat = 'Overweight';
+            else cat = 'Obese';
+
+            res.style.display = 'block';
+            res.innerHTML = `<strong>BMI: ${bmi}</strong> (${cat})<br><span style="color: var(--text-sub); font-size: 0.8rem;">Joint Load Index: Normal</span>`;
+        }
+    }
+
+    function checkAnswer(btn, isCorrect) {
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+        if (isCorrect) {
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+        }
+    }
+</script>
+</body>
+</html>
